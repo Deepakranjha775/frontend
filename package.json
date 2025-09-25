@@ -1,4 +1,3 @@
-
 {
   "name": "frontend",
   "version": "1.0.0",
@@ -11,7 +10,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test --env=jsdom --passWithNoTests",
     "eject": "react-scripts eject"
   },
   "browserslist": {
