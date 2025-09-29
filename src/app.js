@@ -13,7 +13,7 @@ function App() {
 
   return (
     <div style={{ padding: 20 }}>
-      <h1>React Frontend</h1>
+      <h1>React Frontend with complete CICD automation</h1>
       <p>Backend says: {message}</p>
     </div>
   );
