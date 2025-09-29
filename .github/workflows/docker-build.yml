@@ -1,4 +1,3 @@
-
 name: Frontend CI and Docker Build
 
 on:
@@ -44,3 +43,22 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: deepakranjha7/frontend-app:latest
+
+      # Deploy to EC2
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v0.1.10
+        continue-on-error: true
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            docker rm -f frontend || true
+            docker pull deepakranjha7/frontend-app:latest
+            docker run -d --name frontend -p 3000:80 deepakranjha7/frontend-app:latest
+            sudo systemctl restart nginx
+
+      # Notify if EC2 unreachable
+      - name: Notify if EC2 unreachable
+        if: failure()
+        run: echo "⚠️ Deployment failed — EC2 might be offline or unreachable."
